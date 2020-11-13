@@ -12,6 +12,15 @@ BOT_NAME = 'Zeus'
 SPIDER_MODULES = ['Zeus.spiders']
 NEWSPIDER_MODULE = 'Zeus.spiders'
 
+# 日志等级分为
+# 1.DEBUG 调试信息
+# 2.INFO 一般信息
+# 3.WARNING 警告
+# 4.ERROR 普通错误
+# 5.CRITICAL 严重错误
+# 如果设置,LOG_LEVEL="WARNING"，就只会WARNING等级之下的ERROR和CRITICAL,默认等级是1
+# LOG_LEVEL = 'DEBUG'
+# LOG_FILE = 'spider.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Zeus (+http://www.yourdomain.com)'
