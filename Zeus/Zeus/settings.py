@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Scrapy settings for Zeus project
 #
 # For simplicity, this file contains only settings considered important or
@@ -80,9 +81,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'Zeus.pipelines.ZeusPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   # 'Zeus.pipelines.ZeusPipeline': 300,
+   'scrapy.pipelines.images.ImagesPipeline': 1,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -104,3 +106,19 @@ DEFAULT_REQUEST_HEADERS = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# 处理中文json和txt乱码
+# 保存json和txt文件，出现这种东西不是乱码，是unicode，例如：
+# \u96a8\u6642\u66f4\u65b0> \u25a0\u25a0\u25a
+# 在settings.py文件中加入下面一句code，之后就是中文了。
+# FEED_EXPORT_ENCODING ='utf-8'
+
+# 处理中文csv乱码
+# 保存csv表格文件时，会出现中文乱码，这个确实是乱码，例如：
+# 瀵掑啲瀹濈彔鎶勮鎴愬姛 鐖嗗彂浼ゅ 40涓?寮€蹇冧竴涓?
+# 在settings.py文件中加入下面一句code，表格就是中文了
+# FEED_EXPORT_ENCODING = 'gb18030'
+# 所以，编程时，只要有中文，把上面两句直接先复制在settings文件里，生成文件时就不会错了
+
+# 下载文件的设置
+IMAGES_STORE = './meizi'
