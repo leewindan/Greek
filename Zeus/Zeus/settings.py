@@ -121,4 +121,4 @@ ITEM_PIPELINES = {
 # 所以，编程时，只要有中文，把上面两句直接先复制在settings文件里，生成文件时就不会错了
 
 # 下载文件的设置
-IMAGES_STORE = './meizi'
+IMAGES_STORE = './Cute'
