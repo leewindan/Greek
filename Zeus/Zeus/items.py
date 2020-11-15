@@ -10,5 +10,6 @@ import scrapy
 class ZeusItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    title = scrapy.Field()
     images = scrapy.Field()
     image_urls = scrapy.Field()

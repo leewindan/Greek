@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
-import time
 from faker import Factory
 from ..items import ZeusItem
 
@@ -49,14 +48,16 @@ class Xp1024Spider(scrapy.Spider):
                                          headers=self.headers, callback=self.parse_detail_page)
 
     def parse_detail_page(self, response):
-        # item = ZeusItem()
+        item = ZeusItem()
         page_title = response.xpath('//html/head/title/text()')
         jpg_url_list = response.xpath('//div[@id="read_tpc"]')
 
         title = page_title.get().split('|')[0]
         url_list = jpg_url_list.xpath('./img/@src').getall()
 
-        item = ZeusItem(images=title, image_urls=url_list)
+        # item = ZeusItem(images=title, image_urls=url_list)
+        item['title'] = title
+        item['image_urls'] = url_list
         yield item
 
         # for i in jpg_url_list.xpath('./img'):
