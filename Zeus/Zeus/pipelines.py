@@ -31,15 +31,15 @@ class ZeusImageSavePipeline(ImagesPipeline):
     }
 
     def get_media_requests(self, item, info):
-        # urls = ItemAdapter(item).get(self.images_urls_field, [])
-        # for url in urls:
-        #     print(url)
-        #     self.headers['referer'] = url
-        #     yield scrapy.Request(url, headers=self.headers)
-        for image_url in item["image_urls"]:
-            yield scrapy.Request(url=image_url,
-                                 headers=self.headers,
-                                 meta={"item": item})
+        urls = ItemAdapter(item).get(self.images_urls_field, [])
+        for url in urls:
+            self.headers['referer'] = url
+            yield scrapy.Request(url, headers=self.headers, meta={"item": item})
+        # for image_url in item["image_urls"]:
+        #     self.headers['referer'] = image_url
+        #     yield scrapy.Request(url=image_url,
+        #                          headers=self.headers,
+        #                          meta={"item": item})
 
     def file_path(self, request, response=None, info=None, *, item=None):
         # 这个方法是在图片将要被存储的时候调用，来获取这个图片存储的路径
@@ -52,7 +52,7 @@ class ZeusImageSavePipeline(ImagesPipeline):
             os.makedirs(title_path)
 
         image_name = request.url.split('/')[-1]
-        # 下面的参数title,使用的是相对路径，没有使用绝对路径
+        # 下面的参数title,使用的是相对路径,相对于IMAGES_STORE的路径，没有使用绝对路径
         image_path = os.path.join(title, image_name)
 
         return image_path
