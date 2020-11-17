@@ -21,6 +21,7 @@ class Xp1024Spider(scrapy.Spider):
         'User-Agent': f.user_agent()
     }
 
+    # page index 1在parse方法中第一个处理了，所以这里的开始index从2开始
     start_pindex = 2
     last_pindex = 4
 
