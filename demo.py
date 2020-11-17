@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from faker import Factory
 
-a = 'abc[12P]|def|hij - Bt7086'
-b = a.split('|')
-print(b)
-
+a = 'abcdefg'
+for i in a:
+    if i == 'c' or i == 'f':
+        continue
+    print('Now printing -> {}'.format(i))
 
 # f = Factory.create()
 #
