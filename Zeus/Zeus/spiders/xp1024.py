@@ -44,7 +44,7 @@ class Xp1024Spider(scrapy.Spider):
             yield scrapy.Request(next_url, headers=self.headers, callback=self.parse_list_page)
 
     def parse_list_page(self, response):
-        item = ZeusItem()
+        meta = {}
         print('function parse_list_page')
         print(response.xpath('//span[@class="pagesone"]/text()').get())
         # 获取所有大网页中所有网页的uri和网页名称
@@ -54,14 +54,14 @@ class Xp1024Spider(scrapy.Spider):
             # title 每个网页的名字
             href = i.xpath('./td[2]/h3/a/@href').get()
             title = i.xpath('./td[2]/h3/a/text()').get()
-            item['title'] = title
+            meta['title'] = title
 
             # 去掉非目标的uri
             if href and title:
                 if 'html_data' in href:
                     yield scrapy.Request(response.urljoin(href),
                                          headers=self.headers,
-                                         meta={'item': item},
+                                         meta=meta,
                                          callback=self.parse_detail_page)
 
     def parse_detail_page(self, response):
@@ -71,7 +71,7 @@ class Xp1024Spider(scrapy.Spider):
         jpg_url_list = response.xpath('//div[@id="read_tpc"]')
 
         # page_title从上一个方法获取，带有日期
-        page_title = response.meta['item']['title']
+        page_title = response.meta['title']
         print('page_title -> {}'.format(page_title))
 
         title = page_title.split('|')[0]
