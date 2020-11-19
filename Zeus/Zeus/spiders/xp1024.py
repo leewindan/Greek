@@ -22,8 +22,8 @@ class Xp1024Spider(scrapy.Spider):
     }
 
     # page index 1在parse方法中第一个处理了，所以这里的开始index从2开始
-    start_pindex = 2
-    last_pindex = 4
+    start_pindex = 101
+    last_pindex = 150
 
     def parse(self, response):
         # with open('./page.html', 'wb') as f:
@@ -46,7 +46,9 @@ class Xp1024Spider(scrapy.Spider):
     def parse_list_page(self, response):
         meta = {}
         print('function parse_list_page')
-        print(response.xpath('//span[@class="pagesone"]/text()').get())
+        pagesone = response.xpath('//span[@class="pagesone"]/text()').get()
+        current_page = pagesone.split()[0] + pagesone.split()[1]
+        print(current_page)
         # 获取所有大网页中所有网页的uri和网页名称
         lists = response.xpath('//tr[@class="tr3 t_one"]')
         for i in lists:
@@ -72,7 +74,7 @@ class Xp1024Spider(scrapy.Spider):
 
         # page_title从上一个方法获取，带有日期
         page_title = response.meta['title']
-        print('page_title -> {}'.format(page_title))
+        # print('page_title -> {}'.format(page_title))
 
         title = page_title.split('|')[0]
         url_list = jpg_url_list.xpath('./img/@src').getall()

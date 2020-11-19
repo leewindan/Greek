@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 from faker import Factory
+import datetime
 
-a = 'abcdefg'
-for i in a:
-    if i == 'c' or i == 'f':
-        continue
-    print('Now printing -> {}'.format(i))
+today = datetime.datetime.now()
+print(today.year)
+print('%02d' % today.month)
+print('%02d' % today.day)
+print('%02d' % today.hour)
+print('%02d' % today.minute)
+
+# a = 'abcdefg'
+# for i in a:
+#     if i == 'c' or i == 'f':
+#         continue
+#     print('Now printing -> {}'.format(i))
 
 # f = Factory.create()
 #

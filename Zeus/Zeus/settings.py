@@ -8,6 +8,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import datetime
+
+
 BOT_NAME = 'Zeus'
 
 SPIDER_MODULES = ['Zeus.spiders']
@@ -20,8 +23,14 @@ NEWSPIDER_MODULE = 'Zeus.spiders'
 # 4.ERROR 普通错误
 # 5.CRITICAL 严重错误
 # 如果设置,LOG_LEVEL="WARNING"，就只会WARNING等级之下的ERROR和CRITICAL,默认等级是1
-# LOG_LEVEL = 'DEBUG'
-# LOG_FILE = 'spider.log'
+today = datetime.datetime.now()
+log_file_path = 'Log/xp1024_{}{}{}_{}{}.log'.format('%02d' % today.year,
+                                                    '%02d' % today.month,
+                                                    '%02d' % today.day,
+                                                    '%02d' % today.hour,
+                                                    '%02d' % today.minute)
+LOG_LEVEL = 'DEBUG'
+LOG_FILE = log_file_path
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Zeus (+http://www.yourdomain.com)'
