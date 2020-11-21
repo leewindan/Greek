@@ -22,8 +22,8 @@ class Xp1024Spider(scrapy.Spider):
     }
 
     # page index 1在parse方法中第一个处理了，所以这里的开始index从2开始
-    start_pindex = 151
-    last_pindex = 200
+    start_pindex = 1
+    last_pindex = 100
 
     def parse(self, response):
         # with open('./page.html', 'wb') as f:
