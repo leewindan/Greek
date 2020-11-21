@@ -7,6 +7,7 @@
 # useful for handling different item types with a single interface
 
 from itemadapter import ItemAdapter
+import datetime
 import scrapy
 import os
 from scrapy.pipelines.images import ImagesPipeline
@@ -14,6 +15,7 @@ from . import settings
 from faker import Factory
 
 f = Factory.create()
+t = datetime.datetime.now()
 
 
 class ZeusPipeline:
@@ -47,12 +49,15 @@ class ZeusImageSavePipeline(ImagesPipeline):
         image_store = settings.IMAGES_STORE
         title_path = os.path.join(image_store, title)
 
-        if not os.path.exists(title_path):
-            print(title_path)
-            os.makedirs(title_path)
+        today = str(t.year) + str('%02d' % t.month) + str('%02d' % t.day)
+        path = today + '/' + title
+
+        if not os.path.exists(image_store+'/'+path):
+            print(image_store+'/'+path)
+            os.makedirs(image_store+'/'+path)
 
         image_name = request.url.split('/')[-1]
         # 下面的参数title,使用的是相对路径,相对于IMAGES_STORE的路径，没有使用绝对路径
-        image_path = os.path.join(title, image_name)
+        image_path = os.path.join(path, image_name)
 
         return image_path

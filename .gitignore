@@ -130,3 +130,5 @@ dmypy.json
 
 # result
 Cute/
+Log/
+*.csv
