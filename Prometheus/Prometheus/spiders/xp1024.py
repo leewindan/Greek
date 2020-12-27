@@ -2,7 +2,7 @@
 
 import scrapy
 from faker import Factory
-from ..items import ZeusItem
+from ..items import PrometheusItem
 
 f = Factory.create()
 
@@ -11,7 +11,7 @@ class Xp1024Spider(scrapy.Spider):
     name = 'xp1024'
     allowed_domains = ['se.gn79.xyz']
     base_url = 'http://se.gn79.xyz/pw'
-    start_urls = ['http://se.gn79.xyz/pw/thread.php?fid=15&page=1']
+    start_urls = ['https://se.gn79.xyz/pw/thread.php?fid=7&page=1']
 
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -40,10 +40,11 @@ class Xp1024Spider(scrapy.Spider):
         # 这分部实现，与可以放到下面的函数里，在执行的时候回调自己
         for page_index in range(start_page_index, last_page_index+1):
             # print('Current running on page -> {}'.format(page_index))
-            next_url = self.base_url + '/thread.php?fid=15&page=' + str(page_index)
+            next_url = self.base_url + '/thread.php?fid=7&page=' + str(page_index)
             yield scrapy.Request(next_url, headers=self.headers, callback=self.parse_list_page)
 
     def parse_list_page(self, response):
+        item = PrometheusItem()
         meta = {}
         # print('function parse_list_page')
         pagesone = response.xpath('//span[@class="pagesone"]/text()').get()
@@ -61,30 +62,41 @@ class Xp1024Spider(scrapy.Spider):
             # 去掉非目标的uri
             if href and title:
                 if 'html_data' in href:
-                    yield scrapy.Request(response.urljoin(href),
-                                         headers=self.headers,
-                                         meta=meta,
-                                         callback=self.parse_detail_page)
+                    # print(href)
+                    # print(title.lower())
+                    if 'latex' in title.lower() or \
+                            'leather' in title.lower() or \
+                            'stocking' in title.lower():
+                        print(href)
+                        print(title.lower())
+                        item['title'] = title
+                        item['url'] = 'http://se.gn79.xyz/pw/' + href
+                        yield item
 
-    def parse_detail_page(self, response):
-        item = ZeusItem()
-        # page_title 不带有日期
-        # page_title = response.xpath('//html/head/title/text()')
-        jpg_url_list = response.xpath('//div[@id="read_tpc"]')
-
-        # page_title从上一个方法获取，带有日期
-        page_title = response.meta['title']
-        # print('page_title -> {}'.format(page_title))
-
-        title = page_title.split('|')[0]
-        url_list = jpg_url_list.xpath('./img/@src').getall()
-
-        # item = ZeusItem(images=title, image_urls=url_list)
-        item['title'] = title
-        item['image_urls'] = url_list
-        yield item
-
-        # for i in jpg_url_list.xpath('./img'):
-        #     item['title'] = page_title.get().split('|')[0]
-        #     item['url'] = [i.xpath('./@src').get()]
-        #     yield item
+    #                 yield scrapy.Request(response.urljoin(href),
+    #                                      headers=self.headers,
+    #                                      meta=meta,
+    #                                      callback=self.parse_detail_page)
+    # #
+    # def parse_detail_page(self, response):
+    #     item = ZeusItem()
+    #     # page_title 不带有日期
+    #     # page_title = response.xpath('//html/head/title/text()')
+    #     jpg_url_list = response.xpath('//div[@id="read_tpc"]')
+    #
+    #     # page_title从上一个方法获取，带有日期
+    #     page_title = response.meta['title']
+    #     # print('page_title -> {}'.format(page_title))
+    #
+    #     title = page_title.split('|')[0]
+    #     url_list = jpg_url_list.xpath('./img/@src').getall()
+    #
+    #     # item = ZeusItem(images=title, image_urls=url_list)
+    #     item['title'] = title
+    #     item['image_urls'] = url_list
+    #     yield item
+    #
+    #     # for i in jpg_url_list.xpath('./img'):
+    #     #     item['title'] = page_title.get().split('|')[0]
+    #     #     item['url'] = [i.xpath('./@src').get()]
+    #     #     yield item
