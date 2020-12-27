@@ -26,9 +26,6 @@ class Xp1024Spider(scrapy.Spider):
     last_pindex = 100
 
     def parse(self, response):
-        # with open('./page.html', 'wb') as f:
-        #     f.write(response.body)
-        # print('function parse')
         yield scrapy.Request(response.url, headers=self.headers, callback=self.parse_list_page)
 
         last_uri = response.xpath('//div[@class="pages cc"]')[0].xpath('./a/@href')[-1].get()
@@ -64,39 +61,9 @@ class Xp1024Spider(scrapy.Spider):
                 if 'html_data' in href:
                     # print(href)
                     # print(title.lower())
-                    if 'latex' in title.lower() or \
-                            'leather' in title.lower() or \
-                            'stocking' in title.lower():
+                    if 'red' in title.lower():
                         print(href)
                         print(title.lower())
                         item['title'] = title
                         item['url'] = 'http://se.gn79.xyz/pw/' + href
                         yield item
-
-    #                 yield scrapy.Request(response.urljoin(href),
-    #                                      headers=self.headers,
-    #                                      meta=meta,
-    #                                      callback=self.parse_detail_page)
-    # #
-    # def parse_detail_page(self, response):
-    #     item = ZeusItem()
-    #     # page_title 不带有日期
-    #     # page_title = response.xpath('//html/head/title/text()')
-    #     jpg_url_list = response.xpath('//div[@id="read_tpc"]')
-    #
-    #     # page_title从上一个方法获取，带有日期
-    #     page_title = response.meta['title']
-    #     # print('page_title -> {}'.format(page_title))
-    #
-    #     title = page_title.split('|')[0]
-    #     url_list = jpg_url_list.xpath('./img/@src').getall()
-    #
-    #     # item = ZeusItem(images=title, image_urls=url_list)
-    #     item['title'] = title
-    #     item['image_urls'] = url_list
-    #     yield item
-    #
-    #     # for i in jpg_url_list.xpath('./img'):
-    #     #     item['title'] = page_title.get().split('|')[0]
-    #     #     item['url'] = [i.xpath('./@src').get()]
-    #     #     yield item
