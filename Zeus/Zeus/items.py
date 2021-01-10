@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Define here the models for your scraped items
 #
 # See documentation in:
@@ -13,3 +12,4 @@ class ZeusItem(scrapy.Item):
     title = scrapy.Field()
     images = scrapy.Field()
     image_urls = scrapy.Field()
+

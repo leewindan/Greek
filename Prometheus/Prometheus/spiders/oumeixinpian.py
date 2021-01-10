@@ -7,8 +7,8 @@ from ..items import PrometheusItem
 f = Factory.create()
 
 
-class Xp1024Spider(scrapy.Spider):
-    name = 'xp1024'
+class OumeixinpianSpider(scrapy.Spider):
+    name = 'oumeixinpian'
     allowed_domains = ['se.gn79.xyz']
     base_url = 'http://se.gn79.xyz/pw'
     start_urls = ['https://se.gn79.xyz/pw/thread.php?fid=7&page=1']

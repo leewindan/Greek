@@ -7,9 +7,10 @@ from ..items import ZeusItem
 f = Factory.create()
 
 
-class Xp1024Spider(scrapy.Spider):
-    name = 'xp1024'
+class WangyouzipaiSpider(scrapy.Spider):
+    name = 'wangyouzipai'
     allowed_domains = ['se.gn79.xyz']
+    start_urls = ['http://se.gn79.xyz/']
     base_url = 'http://se.gn79.xyz/pw'
     start_urls = ['http://se.gn79.xyz/pw/thread.php?fid=15&page=1']
 

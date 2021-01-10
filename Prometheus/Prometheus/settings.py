@@ -48,6 +48,7 @@ DEFAULT_REQUEST_HEADERS = {
   'cache-control': 'max-age=0',
 }
 
+
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {

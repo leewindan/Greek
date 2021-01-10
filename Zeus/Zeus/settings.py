@@ -24,11 +24,11 @@ NEWSPIDER_MODULE = 'Zeus.spiders'
 # 5.CRITICAL 严重错误
 # 如果设置,LOG_LEVEL="WARNING"，就只会WARNING等级之下的ERROR和CRITICAL,默认等级是1
 today = datetime.datetime.now()
-log_file_path = 'Log/xp1024_{}{}{}_{}{}.log'.format('%02d' % today.year,
-                                                    '%02d' % today.month,
-                                                    '%02d' % today.day,
-                                                    '%02d' % today.hour,
-                                                    '%02d' % today.minute)
+log_file_path = 'Log/wangyouzipai_{}{}{}_{}{}.log'.format('%02d' % today.year,
+                                                          '%02d' % today.month,
+                                                          '%02d' % today.day,
+                                                          '%02d' % today.hour,
+                                                          '%02d' % today.minute)
 LOG_LEVEL = 'DEBUG'
 LOG_FILE = log_file_path
 
