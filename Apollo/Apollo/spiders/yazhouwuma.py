@@ -24,7 +24,11 @@ class YazhouwumaSpider(scrapy.Spider):
 
     # page index 1在parse方法中第一个处理了，所以这里的开始index从2开始
     start_pindex = 1
-    last_pindex = 500
+    last_pindex = 10
+
+    def __init__(self, keyword=None, *args, **kwargs):
+        super(YazhouwumaSpider, self).__init__(*args, **kwargs)
+        self.keyword = keyword
 
     def parse(self, response):
         yield scrapy.Request(response.url, headers=self.headers, callback=self.parse_list_page)
@@ -62,7 +66,7 @@ class YazhouwumaSpider(scrapy.Spider):
                 if 'html_data' in href:
                     # print(href)
                     # print(title.lower())
-                    if 'naomi' in title.lower():
+                    if self.key in title.lower():
                         print(href)
                         print(title.lower())
                         item['title'] = title

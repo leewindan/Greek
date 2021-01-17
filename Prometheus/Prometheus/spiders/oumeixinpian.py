@@ -25,6 +25,10 @@ class OumeixinpianSpider(scrapy.Spider):
     start_pindex = 1
     last_pindex = 100
 
+    def __init__(self, keyword=None, *args, **kwargs):
+        super(OumeixinpianSpider, self).__init__(*args, **kwargs)
+        self.keyword = keyword
+
     def parse(self, response):
         yield scrapy.Request(response.url, headers=self.headers, callback=self.parse_list_page)
 
