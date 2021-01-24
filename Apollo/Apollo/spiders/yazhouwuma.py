@@ -3,6 +3,7 @@
 import scrapy
 from faker import Factory
 from ..items import ApolloItem
+from Demo.utils import func_cost
 
 f = Factory.create()
 
@@ -45,6 +46,7 @@ class YazhouwumaSpider(scrapy.Spider):
             next_url = self.base_url + '/thread.php?fid=5&page=' + str(page_index)
             yield scrapy.Request(next_url, headers=self.headers, callback=self.parse_list_page)
 
+    @func_cost
     def parse_list_page(self, response):
         item = ApolloItem()
         meta = {}
@@ -66,7 +68,7 @@ class YazhouwumaSpider(scrapy.Spider):
                 if 'html_data' in href:
                     # print(href)
                     # print(title.lower())
-                    if self.key in title.lower():
+                    if self.keyword in title.lower():
                         print(href)
                         print(title.lower())
                         item['title'] = title

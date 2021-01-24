@@ -11,5 +11,5 @@ if __name__ == '__main__':
                                                              '%02d' % today.hour,
                                                              '%02d' % today.minute)
 
-    cmd = 'scrapy crawl oumeixinpian -o ' + output_file_path + ' -a keyword=fc'
+    cmd = 'scrapy crawl oumeixinpian -o ' + output_file_path + ' -a keyword=asian'
     cmdline.execute(cmd.split())

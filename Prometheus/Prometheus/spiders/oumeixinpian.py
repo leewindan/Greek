@@ -36,7 +36,7 @@ class OumeixinpianSpider(scrapy.Spider):
         last_page_index = int(last_uri.split('=')[-1])
         # 上面是从网页里面获取的last page，这个值太大，下面自己自定义起始网页index
         start_page_index = self.start_pindex
-        last_page_index = self.last_pindex
+        # last_page_index = self.last_pindex
 
         # 这分部实现，与可以放到下面的函数里，在执行的时候回调自己
         for page_index in range(start_page_index, last_page_index+1):
@@ -65,7 +65,7 @@ class OumeixinpianSpider(scrapy.Spider):
                 if 'html_data' in href:
                     # print(href)
                     # print(title.lower())
-                    if 'red' in title.lower():
+                    if self.keyword in title.lower():
                         print(href)
                         print(title.lower())
                         item['title'] = title
